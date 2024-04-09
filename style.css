@@ -161,6 +161,8 @@ body {
 
 .quadradoUmidade {
   justify-content: center;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
   margin-top: 1.1rem;
   width: 35vh;
   height: 43vh;
@@ -173,6 +175,7 @@ body {
   justify-content: center;
   margin-top: 1.5rem;
   margin-left: 0.4rem;
+  margin-right: 0.4rem;
   width: 35vh;
   height: 43vh;
   border-radius: 50px;
@@ -205,10 +208,13 @@ body {
 
 @media screen and (max-width: 1200px) {
   body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 18px;
   }
   .quadradoFundo {
-    width: 180vh;
+    width: 150vh;
     height: 95vh;
   }
   .quadradoBranco {
