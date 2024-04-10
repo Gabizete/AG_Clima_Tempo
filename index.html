@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <!-- Configuração da página -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Importa estilos CSS -->
     <link rel="stylesheet" href="style.css" />
+    <!-- Importa fontes da biblioteca Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <!-- Título da página -->
     <title>Consulta do Clima</title>
   </head>
 
+  <!-- Estrutura principal da aplicação -->
   <body>
     <div class="quadradoFundo">
       <div class="quadradoBranco">
         <div class="tempoquadrado">
+          <!-- Formulário para inserir a cidade -->
           <form id="formClima">
+            <!-- Campo para inserir a cidade -->
             <input type="text" id="cityInput" name="cityInput" />
+            <!-- Botão de consulta -->
             <button id="consultarBotao" type="submit" name="consultarBotao">
+              <!-- Ícone de pesquisa -->
               <svg
                 style="width: 20px; height: 30px; vertical-align: middle"
                 viewBox="0 3 22 22"
@@ -31,34 +40,47 @@
           </form>
         </div>
 
+        <!-- Exibição dos dados do clima -->
+        <!-- Temperatura -->
         <div id="temperatura1"></div>
+        <!-- Nome da cidade -->
         <div id="cidade" class="cidade"></div>
+        <!-- Hora atual -->
         <div id="horaAtual"></div>
+        <!-- Temperatura-->
         <div class="quadradoTemperatura"></div>
       </div>
       <div class="quadradoCinza">
         <div class="quadradoCinzaEsquerda">
           <div class="quadradoVento quadrados">
+            <!-- Velocidade do vento -->
             <div id="vento" class="txt-resp"></div>
+            <!-- Imagem relacionada ao vento -->
             <div>
               <img class="imgVento" src="img/imagemVento.png" width="200px" />
             </div>
           </div>
           <div class="quadradoClima quadrados">
+            <!-- Condição climática -->
             <div id="clima" class="txt-resp"></div>
+            <!-- Imagem relacionada ao clima -->
             <img class="imgClima" src="" id="imagenzinha" />
           </div>
         </div>
         <div class="quadradoCinzaDireita">
           <div class="quadradoUmidade quadrados">
+            <!-- Umidade -->
             <div id="umidade" class="txt-resp"></div>
             <div>
+              <!-- Imagem relacionada à umidade -->
               <img class="imgUmidade" src="img/imagemGota.png" width="150px" />
             </div>
           </div>
           <div class="quadradoData quadrados">
+            <!-- Data atual -->
             <div class="dataAtual" class="txt-resp"></div>
             <div>
+              <!-- Imagem relacionada à data -->
               <img
                 class="imgData"
                 src="img/imagemCalendário.png"
@@ -70,12 +92,16 @@
       </div>
     </div>
 
+    <!-- Resultado da consulta do clima -->
     <div id="climaResult"></div>
 
     <script>
+      // Obtém a referência para a imagem do clima
       const imagem = document.getElementById("imagenzinha");
 
+      // Função para mostrar a imagem correspondente ao clima
       const mostrar = (a, img) => {
+        // Determina qual imagem exibir com base na condição climática 'a'
         if (
           a == "Redemoinhos de Areia/Poeira" ||
           a == "Areia" ||
@@ -148,6 +174,7 @@
         }
       };
 
+      // Evento que atualiza a data atual a cada segundo
       document.addEventListener("DOMContentLoaded", () => {
         const dataAtualElement = document.querySelector(".dataAtual");
 
@@ -157,6 +184,7 @@
         }, 1000);
       });
 
+      // Evento que atualiza a hora atual a cada segundo
       document.addEventListener("DOMContentLoaded", () => {
         const horaAtualElement = document.getElementById("horaAtual");
 
@@ -174,21 +202,26 @@
         }, 1000);
       });
 
+      // Referências aos elementos HTML onde serão exibidas as informações do clima
       const vento = document.getElementById("vento");
       const clima = document.getElementById("clima");
       const umidade = document.getElementById("umidade");
       const temperatura1 = document.getElementById("temperatura1");
 
+      // Função para adicionar informação de umidade aos elementos HTML
       function addUmidade(umidade, text, text2) {
         umidade.innerText = text + text2;
       }
 
+      // Consulta o clima ao pressionar a Lupa
       document
         .getElementById("formClima")
         .addEventListener("submit", function (event) {
           event.preventDefault();
+          consultarClima();
         });
 
+      // Consulta o clima ao pressionar Enter no campo de entrada da cidade
       document
         .getElementById("cityInput")
         .addEventListener("keypress", function (event) {
@@ -198,6 +231,7 @@
           }
         });
 
+      // Funções para ajustar o layout responsivo de acordo com o tamanho da tela
       function telaDesktop() {
         document.getElementById("temperatura1").style.height = "auto";
         document.getElementById("temperatura1").style.marginTop = "19vh";
@@ -223,23 +257,30 @@
         document.getElementById("horaAtual").style.marginTop = "-10vh";
       }
 
+      // Função para consultar o clima
       function consultarClima() {
+        // Obtém o nome da cidade inserido pelo usuário
         const city = document.getElementById("cityInput").value;
+
+        // Realiza a consulta do clima através de uma requisição fetch
         fetch(`http://localhost:3000/climatempo/${city}`)
-          .then((response) => response.json())
+          .then((response) => response.json()) // Converte a resposta para JSON
           .then((data) => {
             const tempoResult = document.getElementById("climaResult");
             if (data.Temperatura) {
+              // Atualiza as informações do clima nos elementos HTML
               addUmidade(vento, data.VelocidadeDoVento, "m/s");
               addUmidade(clima, data.Clima, "");
               addUmidade(umidade, data.Umidade, "%");
               addUmidade(temperatura1, Math.round(data.Temperatura), "C°");
               mostrar(data.Clima, imagem);
 
+              // Formata o nome da cidade e atualiza o elemento HTML correspondente
               const formatarCity = novoCity(city);
               const cidadeElemento = document.querySelector(".cidade");
               cidadeElemento.textContent = formatarCity;
 
+              // Realiza ajustes no layout responsivo de acordo com o tamanho da tela
               if (window.innerWidth <= 640) {
                 telaMobile();
               } else if (window.innerWidth <= 1200) {
@@ -256,6 +297,7 @@
           .catch((error) => console.error("Erro ao obter dados!", error));
       }
 
+      // Função para formatar o nome da cidade (primeira letra maiúscula)
       function novoCity(city) {
         const palavras = city.split(" ");
         const excecoes = ["do", "da", "de", "e"];
