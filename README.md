@@ -1,7 +1,7 @@
 # <em>Clima_Tempo_AG</em>
 
 <h2>Sobre o projeto</h2>
--  Nosso projeto utiliza a Weather API para receber as informações climáticas da cidade que é definida pelo próprio usuário!
+- Nosso projeto utiliza a Weather API para receber as informações climáticas da cidade que é definida pelo próprio usuário!
 
 Antes de tudo, para usar o site é necessário que você pegue a key da sua API no site OpenWeatherMap
 - Crie sua conta
