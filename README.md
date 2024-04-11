@@ -1,12 +1,14 @@
-# <em>Clima_Tempo_AG<em>
-Sobre o projeto:
+# <em>Clima_Tempo_AG</em>
 
-Projeto que utiliza a Weather API para receber as informações climáticas da cidade definida pelo usuário!
+<h2>Sobre o projeto</h2>
+-  Nosso projeto utiliza a Weather API para receber as informações climáticas da cidade que é definida pelo próprio usuário!
 
-OBS: Para usar o site é necessário que você pegue a key da sua API no site OpenWeatherMap
+<h2>Antes de tudo, para usar o site é necessário que você pegue a key da sua API no site OpenWeatherMap</h2>
  - Crie sua conta
- - 
+ - Prossiga até a página "API" e inscreva-se na API de previsão climática
+ - Na aba da sua conta encontre a key gerada pelo site
 
+<h2>Como usar</h2>
 1° Passo:
 
 - Ao clonar os aquivos rode o comando "npm i" ou "npm install" para instalar todas as depêndencias
